@@ -18,8 +18,17 @@ describe("app", function() {
   it("creates messages with an id, date and content", function() {
     app.create("Hello, I am a message");
     app.create("Hello, I'm message no2");
+    console.log("Hey", app.messages[1])
     expect(app.messages[1].content).to.equal("Hello, I'm message no2");
-    expect(app.messages[1].id).to.equal(2);
+    expect(app.messages[1].id).to.equal(1);
     expect(app.messages[1].date).not.to.equal(undefined);
+  })
+  it("can return individual messages id, content and date", function() {
+    app.create("Hello, I am a message");
+    app.create("Hello, I'm message no2");
+    console.log("Hey2", app.get(1))
+    expect(app.get(1).content).to.equal("Hello, I'm message no2");
+    expect(app.get(1).id).to.equal(1);
+    expect(app.get(1).date).not.to.equal(undefined);
   })
 });
