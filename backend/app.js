@@ -22,6 +22,11 @@ class MessageApp {
     //   }
     // })
   }
+
+  update(messageID, newContent) {
+    this.messages[messageID].content = newContent;
+    this.messages[messageID].date = new Date();
+  }
 }
 
 export default MessageApp
