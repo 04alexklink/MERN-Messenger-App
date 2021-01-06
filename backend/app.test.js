@@ -35,4 +35,10 @@ describe("app", function() {
     app.update(1, "Hello, I've been updated");
     expect(app.get(1).content).to.equal("Hello, I've been updated");
   })
+  it("can delete a message", function() {
+    app.create("Hello, I am a message");
+    app.create("Hello, I'm message no2");
+    app.delete(1);
+    expect(app.get(1)).to.equal(undefined)
+  })
 });

@@ -27,6 +27,9 @@ class MessageApp {
     this.messages[messageID].content = newContent;
     this.messages[messageID].date = new Date();
   }
+  delete(messageID) {
+    this.messages.splice(messageID);
+  }
 }
 
 export default MessageApp
