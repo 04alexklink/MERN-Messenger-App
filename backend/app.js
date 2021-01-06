@@ -4,7 +4,12 @@ class MessageApp {
   }
 
   create(messageContent) {
-    this.messages.push(messageContent);
+    var message = {
+      content : messageContent,
+      id : this.messages.length + 1,
+      date : new Date()
+    }
+    this.messages.push(message);
   }
 }
 
