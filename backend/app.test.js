@@ -6,6 +6,11 @@ describe("app", function() {
   beforeEach(() => {
     app = new MessageApp;
   })
+  it("reads from a given filepath", function() {
+    var testFileApp = new MessageApp('/jsonm/testMessages.json/');
+    expect(testFileApp.messages.length).to.equal(1);
+    console.log(testFileApp.messages);
+  })
   it("can store messages", function() {
     expect(app.messages).to.be.an('array');
     expect(app.messages.length).to.equal(0);

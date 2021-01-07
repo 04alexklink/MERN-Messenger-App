@@ -1,6 +1,9 @@
+import fs from 'fs';
+
 class MessageApp {
-  constructor() {
-    this.messages = [];
+  constructor(jsonMessageFile) {
+    this.filepath = jsonMessageFile
+    this.messages = this.filepath ? this.readFromJson() : [];
   }
 
   create(messageContent) {
@@ -34,6 +37,13 @@ class MessageApp {
     }
   }
 
+  readFromJson() {
+    return JSON.parse(fs.readFileSync(
+      __dirname+this.filepath,"utf8",(err,data)=>{
+        if (err) throw err
+      })
+    )
+  }
 }
 
 export default MessageApp
