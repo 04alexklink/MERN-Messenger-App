@@ -6,10 +6,16 @@ describe("app", function() {
   beforeEach(() => {
     app = new MessageApp;
   })
-  it("reads from a given filepath", function() {
-    var testFileApp = new MessageApp('/jsonm/testMessages.json/');
-    expect(testFileApp.messages.length).to.equal(1);
-    console.log(testFileApp.messages);
+  it("reads and writes from a given filepath", function() {
+    var testFileWriteApp = new MessageApp('/json/testMessages.json/');
+    expect(testFileWriteApp.messages.length).to.equal(0);
+    testFileWriteApp.create("Writing a message");
+    expect(testFileWriteApp.messages.length).to.equal(1);
+    var testFileReadApp = new MessageApp('/json/testMessages.json/');
+    expect(testFileReadApp.messages.length).to.equal(1);
+    testFileReadApp.delete(1);
+    var testFileClearedApp = new MessageApp('/json/testMessages.json/');
+    expect(testFileClearedApp.messages.length).to.equal(0);
   })
   it("can store messages", function() {
     expect(app.messages).to.be.an('array');
