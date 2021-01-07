@@ -19,15 +19,15 @@ describe("app", function() {
     app.create("Hello, I am a message");
     app.create("Hello, I'm message no2");
     expect(app.messages[1].content).to.equal("Hello, I'm message no2");
-    expect(app.messages[1].id).to.equal(1);
+    expect(app.messages[1].id).to.equal(2);
     expect(app.messages[1].date).not.to.equal(undefined);
   })
   it("can return individual messages id, content and date", function() {
     app.create("Hello, I am a message");
     app.create("Hello, I'm message no2");
-    expect(app.get(1).content).to.equal("Hello, I'm message no2");
-    expect(app.get(1).id).to.equal(1);
-    expect(app.get(1).date).not.to.equal(undefined);
+    expect(app.get(2).content).to.equal("Hello, I'm message no2");
+    expect(app.get(2).id).to.equal(2);
+    expect(app.get(2).date).not.to.equal(undefined);
   })
   it("app can update a messages content and date", function() {
     app.create("Hello, I am a message");
@@ -40,5 +40,13 @@ describe("app", function() {
     app.create("Hello, I'm message no2");
     app.delete(1);
     expect(app.get(1)).to.equal(undefined)
+  })
+  it("app message id's are always unique", function() {
+    app.create("Hello, I am a message");
+    app.create("Hello, I'm message no2");
+    app.create("Hello, i'm the third message")
+    app.delete(1)
+    app.create("Hey, i'm the fourth message created")
+    expect(app.messages[2].id).to.equal(4);
   })
 });

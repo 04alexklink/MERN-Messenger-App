@@ -6,30 +6,34 @@ class MessageApp {
   create(messageContent) {
     var message = {
       content : messageContent,
-      id : this.messages.length,
+      id : this._newID(),
       date : new Date()
     }
     this.messages.push(message);
   }
 
   get(messageID) {
-    return this.messages[messageID];
-    // this.messages.forEach((message) => {
-    //   if(message.id === messageID) {
-    //     console.log(message)
-    //     var selectedMessage = message;
-    //     return [selectedMessage];
-    //   }
-    // })
+    return this.messages.filter(message => message.id === messageID )[0];
   }
 
   update(messageID, newContent) {
-    this.messages[messageID].content = newContent;
-    this.messages[messageID].date = new Date();
+    var index = this.messages.findIndex(message => message.id === messageID);
+    this.messages[index].content = newContent;
+    this.messages[index].date = new Date();
   }
+
   delete(messageID) {
-    this.messages.splice(messageID);
+    var index = this.messages.findIndex(message => message.id === messageID);
+    this.messages.splice(index,1);
   }
+  _newID() {
+    if(this.messages.length >= 1) {
+    return this.messages[this.messages.length - 1].id + 1;
+    } else { 
+      return 1;
+    }
+  }
+
 }
 
 export default MessageApp
