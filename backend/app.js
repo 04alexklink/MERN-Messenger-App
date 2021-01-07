@@ -21,6 +21,10 @@ class MessageApp {
     return this.messages.filter(message => message.id === messageID )[0];
   }
 
+  getAll() {
+    return this.messages;
+  }
+
   update(messageID, newContent) {
     var index = this.messages.findIndex(message => message.id === messageID);
     this.messages[index].content = newContent;

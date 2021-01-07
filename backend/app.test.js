@@ -40,6 +40,10 @@ describe("app", function() {
     expect(app.get(2).id).to.equal(2);
     expect(app.get(2).date).not.to.equal(undefined);
   })
+  it("can return all messages", function() {
+    app = new MessageApp();
+    expect(app.getAll()).to.be.an('array');
+  })
   it("app can update a messages content and date", function() {
     app.create("Hello, I am a message");
     app.create("Hello, I'm message no2");
