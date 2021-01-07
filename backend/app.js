@@ -7,14 +7,15 @@ class MessageApp {
   }
 
   create(messageContent) {
-    var message = {
-      content : messageContent,
-      id : this._newID(),
-      date : new Date()
+    if(messageContent !== undefined && messageContent !== '') {
+      var message = {
+        content : messageContent,
+        id : this._newID(),
+        date : new Date()
+      }
+      this.messages.push(message);
+      this.writeToJson();
     }
-    this.messages.push(message);
-    this.writeToJson();
-    
   }
 
   get(messageID) {

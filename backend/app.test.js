@@ -41,14 +41,20 @@ describe("app", function() {
     expect(app.get(2).date).not.to.equal(undefined);
   })
   it("can return all messages", function() {
-    app = new MessageApp();
     expect(app.getAll()).to.be.an('array');
+    app.create("Message 1");
+    expect(app.getAll()[0].content).to.equal("Message 1")
   })
   it("app can update a messages content and date", function() {
     app.create("Hello, I am a message");
     app.create("Hello, I'm message no2");
     app.update(1, "Hello, I've been updated");
     expect(app.get(1).content).to.equal("Hello, I've been updated");
+  })
+  it("rejects empty messages from being created", function() {
+    app.create();
+    app.create('');
+    expect(app.messages).to.deep.equal([]);
   })
   it("can delete a message", function() {
     app.create("Hello, I am a message");
