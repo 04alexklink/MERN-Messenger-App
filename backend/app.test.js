@@ -8,30 +8,25 @@ describe("app", function() {
   })
   it("reads and writes from a given filepath", function() {
     var testFileWriteApp = new MessageApp('/json/testMessages.json/');
-    expect(testFileWriteApp.messages.length).to.equal(0);
+    expect(testFileWriteApp.getAll().length).to.equal(0);
     testFileWriteApp.create("Writing a message");
-    expect(testFileWriteApp.messages.length).to.equal(1);
+    expect(testFileWriteApp.getAll().length).to.equal(1);
     var testFileReadApp = new MessageApp('/json/testMessages.json/');
-    expect(testFileReadApp.messages.length).to.equal(1);
+    expect(testFileReadApp.getAll().length).to.equal(1);
     testFileReadApp.delete(1);
     var testFileClearedApp = new MessageApp('/json/testMessages.json/');
-    expect(testFileClearedApp.messages.length).to.equal(0);
+    expect(testFileClearedApp.getAll().length).to.equal(0);
   })
-  it("can store messages", function() {
-    expect(app.messages).to.be.an('array');
-    expect(app.messages.length).to.equal(0);
-  });
-  it("can create messages", function() {
-    app.create("Hello, I am a message");
-    app.create("Hello, I'm message no2")
-    expect(app.messages.length).to.equal(2);
+  it("can store messages but has no messages when created", function() {
+    expect(app.getAll()).to.be.an('array');
+    expect(app.getAll()).to.deep.equal([]);
   });
   it("creates messages with an id, date and content", function() {
     app.create("Hello, I am a message");
     app.create("Hello, I'm message no2");
-    expect(app.messages[1].content).to.equal("Hello, I'm message no2");
-    expect(app.messages[1].id).to.equal(2);
-    expect(app.messages[1].date).not.to.equal(undefined);
+    expect(app.getAll()[1].content).to.equal("Hello, I'm message no2");
+    expect(app.getAll()[1].id).to.equal(2);
+    expect(app.getAll()[1].date).not.to.equal(undefined);
   })
   it("can return individual messages id, content and date", function() {
     app.create("Hello, I am a message");
@@ -54,7 +49,7 @@ describe("app", function() {
   it("rejects empty messages from being created", function() {
     app.create();
     app.create('');
-    expect(app.messages).to.deep.equal([]);
+    expect(app.getAll()).to.deep.equal([]);
   })
   it("can delete a message", function() {
     app.create("Hello, I am a message");
