@@ -46,6 +46,13 @@ describe("app", function() {
     app.update(1, "Hello, I've been updated");
     expect(app.get(1).content).to.equal("Hello, I've been updated");
   })
+  it("rejects false updates", function() {
+    expect(app.update(1)).to.equal("This message does not exist or updated content is missing.")
+    expect(app.getAll()).to.deep.equal([]);
+    expect(app.create("Hello"));
+    expect(app.update(1)).to.equal("This message does not exist or updated content is missing.");
+    expect(app.update(1, "")).to.equal("This message does not exist or updated content is missing.");
+  })
   it("rejects empty messages from being created", function() {
     app.create();
     app.create('');

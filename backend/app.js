@@ -28,9 +28,13 @@ class MessageApp {
 
   update(messageID, newContent) {
     var index = this.messages.findIndex(message => message.id === messageID);
+    if(index >= 0 && newContent !== undefined && newContent !== "") {
     this.messages[index].content = newContent;
     this.messages[index].date = new Date();
     this.writeToJson();
+    } else {
+      return "This message does not exist or updated content is missing."
+    }
   }
 
   delete(messageID) {
