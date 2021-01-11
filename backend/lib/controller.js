@@ -16,6 +16,19 @@ function getAll(){
     }
   })
 }
+
+function create(content) {
+  return new Promise((resolve,reject) => {
+    messageApp.create(content)
+    var result = messageApp.getAll();
+    if (result !== []) {
+      resolve(result);
+    } else {
+      reject(result);
+    }
+  })
+}
   module.exports = {
-    getAll
+    getAll,
+    create
   }
