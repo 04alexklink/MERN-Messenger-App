@@ -4,8 +4,7 @@ import MessageApp from "../app.js";
 
 describe("message API endpoint tests", function(){
     it.only("gets all messages", function(done) {
-        var res = request(MessageApp)
-        .get("/")
+        var res = request(MessageApp).get("/")
         res.expect(200)
         .end(function(err, res) {
           if (err) {
