@@ -19,7 +19,7 @@ class MessageApp {
   }
 
   get(messageID) {
-    return this.messages.filter(message => message.id === messageID )[0];
+    return this.messages.filter(message => message.id == messageID )[0];
   }
 
   getAll() {

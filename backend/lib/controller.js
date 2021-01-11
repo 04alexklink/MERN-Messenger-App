@@ -17,6 +17,17 @@ function getAll(){
   })
 }
 
+function getOne(id) {
+  return new Promise((resolve, reject) => {
+  var result = messageApp.get(id)
+  if(result !== []) {
+    resolve(result);
+  } else {
+    reject(result);
+  }
+})
+}
+
 function create(content) {
   return new Promise((resolve,reject) => {
     messageApp.create(content)
@@ -56,5 +67,6 @@ module.exports = {
   getAll,
   create,
   deleteMessage,
-  update
+  update, 
+  getOne
 }
