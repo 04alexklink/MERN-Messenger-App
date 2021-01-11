@@ -28,7 +28,20 @@ function create(content) {
     }
   })
 }
-  module.exports = {
-    getAll,
-    create
-  }
+
+function deleteMessage(id){
+  return new Promise((resolve, reject) => {
+    let result = messageApp.delete(id)
+    if (result !== 'This message does not exist.') {
+      resolve(result)
+    } else {
+      reject(result)
+    }
+  })
+}
+
+module.exports = {
+  getAll,
+  create,
+  deleteMessage
+}

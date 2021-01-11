@@ -38,13 +38,14 @@ class MessageApp {
   }
 
   delete(messageID) {
-    var index = this.messages.findIndex(message => message.id === messageID);
+    var index = this.messages.findIndex(message => message.id == messageID);
     if(index >= 0) {
     this.messages.splice(index,1);
     this.writeToJson();
     } else {
       return "This message did not exist."
     }
+    return this.messages;
   }
   _newID() {
     if(this.messages.length >= 1) {

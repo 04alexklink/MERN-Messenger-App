@@ -13,5 +13,13 @@ router.post('/message', async (req, res) => {
   .then((messages) => {res.json(messages)})
   .catch((err) => res.status(404).json(err))
 })
+
+router.delete('/delete/:id', async (req, res) => {
+  await messageApp.deleteMessage(req.params.id)
+  .then((messages) => {
+    res.json(messages)
+  })
+  .catch((err) => res.status(404).json(err))
+})
 // module.exports = router
 export default router
