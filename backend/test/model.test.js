@@ -8,14 +8,16 @@ describe("app", function() {
   })
   it("reads and writes from a given filepath", function() {
     var testFileWriteApp = new MessageApp('/json/testMessages.json/');
-    expect(testFileWriteApp.getAll().length).to.equal(0);
-    testFileWriteApp.create("Writing a message");
     expect(testFileWriteApp.getAll().length).to.equal(1);
+    expect(testFileWriteApp.getAll()[0].content).to.equal("hello world")
+    expect(testFileWriteApp.getAll()[0].id).to.equal(1);
+    testFileWriteApp.create("Writing a message");
+    expect(testFileWriteApp.getAll().length).to.equal(2);
     var testFileReadApp = new MessageApp('/json/testMessages.json/');
-    expect(testFileReadApp.getAll().length).to.equal(1);
-    testFileReadApp.delete(1);
+    expect(testFileReadApp.getAll().length).to.equal(2);
+    testFileReadApp.delete(2);
     var testFileClearedApp = new MessageApp('/json/testMessages.json/');
-    expect(testFileClearedApp.getAll().length).to.equal(0);
+    expect(testFileClearedApp.getAll().length).to.equal(1);
   })
   it("can store messages but has no messages when created", function() {
     expect(app.getAll()).to.be.an('array');
