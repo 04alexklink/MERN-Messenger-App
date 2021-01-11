@@ -29,6 +29,18 @@ function create(content) {
   })
 }
 
+function update(id, content) {
+  return new Promise((resolve, reject) => {
+    messageApp.update(id, content)
+    let result = messageApp.getAll()
+    if(result !== "This message does not exist or updated content is missing.") {
+      resolve(result)
+    } else {
+      reject(result)
+    }
+  })
+}
+
 function deleteMessage(id){
   return new Promise((resolve, reject) => {
     let result = messageApp.delete(id)
@@ -43,5 +55,6 @@ function deleteMessage(id){
 module.exports = {
   getAll,
   create,
-  deleteMessage
+  deleteMessage,
+  update
 }

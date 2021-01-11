@@ -27,7 +27,7 @@ class MessageApp {
   }
 
   update(messageID, newContent) {
-    var index = this.messages.findIndex(message => message.id === messageID);
+    var index = this.messages.findIndex(message => message.id == messageID);
     if(index >= 0 && newContent !== undefined && newContent !== "") {
     this.messages[index].content = newContent;
     this.messages[index].date = new Date();
