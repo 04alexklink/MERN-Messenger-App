@@ -20,10 +20,10 @@ function getAll(){
 function getOne(id) {
   return new Promise((resolve, reject) => {
   var result = messageApp.get(id)
-  if(result !== []) {
+  if(result != undefined) {
     resolve(result);
   } else {
-    reject(result);
+    reject("This message is not in the database.");
   }
 })
 }
@@ -44,7 +44,6 @@ function update(id, content) {
   return new Promise((resolve, reject) => {
     var result = messageApp.update(id, content)
     if(result != "This message does not exist or updated content is missing.") {
-      console.log(result)
       resolve(result)
     } else {
       reject(result)

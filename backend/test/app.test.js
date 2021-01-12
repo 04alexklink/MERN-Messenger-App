@@ -116,5 +116,16 @@ describe("message API endpoint tests", function(){
       done()
       })
     })
+    it("creates an error if single message does not exist", function(done) {
+      var res = request(MessageApp).get("/message/2")
+      res.expect(404)
+      .end(function (err, res) {
+        if(err) {
+          return done(err);
+        }
+      expect(res.body).to.equal("This message is not in the database.")
+      done();
+      })
+    })
   })
 })
