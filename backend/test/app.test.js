@@ -101,5 +101,20 @@ describe("message API endpoint tests", function(){
       done()
       })
     })
+    it("raises error if try to update a message that doesn't exist", function(done) {
+      var data = { content: "Hello" }
+      var res = request(MessageApp)
+      .put("/update/2")
+      .send(data)
+      .set("Accept", "application/json")
+      res.expect(404)
+      .end(function(err, res) {
+        if(err) {
+          return done(err);
+        }
+      expect(res.body).to.equal("This message does not exist or updated content is missing.")
+      done()
+      })
+    })
   })
 })
