@@ -42,9 +42,9 @@ function create(content) {
 
 function update(id, content) {
   return new Promise((resolve, reject) => {
-    messageApp.update(id, content)
-    let result = messageApp.getAll()
-    if(result !== "This message does not exist or updated content is missing.") {
+    var result = messageApp.update(id, content)
+    if(result != "This message does not exist or updated content is missing.") {
+      console.log(result)
       resolve(result)
     } else {
       reject(result)

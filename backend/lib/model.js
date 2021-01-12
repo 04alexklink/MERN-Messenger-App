@@ -32,6 +32,7 @@ class MessageApp {
     this.messages[index].content = newContent;
     this.messages[index].date = new Date();
     this.writeToJson();
+    return this.messages;
     } else {
       return "This message does not exist or updated content is missing."
     }
