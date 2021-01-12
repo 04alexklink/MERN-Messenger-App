@@ -67,7 +67,7 @@ describe("app", function() {
     expect(app.get(1)).to.equal(undefined)
   })
   it("returns an error message if message to be deleted did not exist", function() {
-    expect(app.delete(1)).to.equal("This message did not exist.");
+    expect(app.delete(1)).to.equal("This message does not exist.");
   })
   it("app message id's are always unique", function() {
     app.create("Hello, I am a message");

@@ -43,10 +43,10 @@ class MessageApp {
     if(index >= 0) {
     this.messages.splice(index,1);
     this.writeToJson();
-    } else {
-      return "This message did not exist."
-    }
     return this.messages;
+    } else {
+      return "This message does not exist."
+    }
   }
   _newID() {
     if(this.messages.length >= 1) {
