@@ -1,8 +1,27 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from 'react';
+// import ReactDOM from 'react-dom';
+import MessageApp from './App'
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme'
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+Enzyme.configure({ adapter: new Adapter()})
+
+describe('App',() => {
+  it('renders without crashing', () => {
+    const component = mount(<MessageApp/>);
+    expect(component).toMatchSnapshot();
+  });
+  it('has a textbox', () => {
+    const component = mount(<MessageApp/>);
+    expect(component.exists('textarea#message_box')).toBe(true);
+  });
+  it('has a submit button', () => {
+    const component = mount(<MessageApp/>);
+    expect(component.exists('button#submit')).toBe(true);
+  });
+  it('has a message list', () => {
+    const component = mount(<MessageApp/>);
+    expect(component.exists('ul#message_list')).toBe(true);
+  });
+})

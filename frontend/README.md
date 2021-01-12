@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+Notes:
+When do create-react-app, it will install version 17 of React. But Enzyme and Enzyme Adapter (that allow Mount to be used when dealing with components) uses React 16. So downgrade in package.json to versions: "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    In order: delete node modules file, then manually edit to these versions in package.json, then do npm install. Then npm test should pass as Mount is recognised and works again. 
