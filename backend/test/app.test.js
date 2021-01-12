@@ -70,4 +70,21 @@ describe("message API endpoint tests", function(){
     done()
     })
   })
+  describe("errors raised by message API when necessary", function() {
+    it("raises error if emptry string or nothing sent as message content to post", function(done) {
+      var data = { content: '' }
+      var res = request(MessageApp)
+      .post("/message")
+      .send(data)
+      .set("Accept", "application/json")
+      res.expect(404)
+      .end(function(err, res) {
+        if(err) {
+          return done(err);
+        }
+      expect(res.body).to.equal("You can't post an empty message.")
+      done()
+      })
+    })
+  })
 })
