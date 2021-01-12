@@ -71,6 +71,17 @@ describe("message API endpoint tests", function(){
     })
   })
   describe("errors raised by message API when necessary", function() {
+    it("produces error if try to get messages when none exist", function(done) {
+      var res = request(MessageApp).get("/")
+      res.expect(404)
+      .end(function(err, res) {
+        if(err) {
+          return done(err);
+        }
+      expect(res.body).to.equal("There are no messages in the database.")
+      done();
+      })
+    })
     it("raises error if emptry string or nothing sent as message content to post", function(done) {
       var data = { content: '' }
       var res = request(MessageApp)
