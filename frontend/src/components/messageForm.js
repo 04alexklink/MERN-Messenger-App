@@ -29,7 +29,7 @@ class MessageForm extends React.Component {
       <textarea onChange={(e) => this.changeMessageValue(e.target.value)}
            value={this.state.currentMessage} id='message_box'></textarea>
       <br/>
-      <button type="button" name="Submit" id="submit">Submit</button>
+      <button type="submit" name="Submit" id="submit">Submit</button>
       </form>
     );
   }
