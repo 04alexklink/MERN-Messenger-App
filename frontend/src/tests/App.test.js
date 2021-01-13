@@ -8,14 +8,19 @@ import { mount } from 'enzyme'
 
 Enzyme.configure({ adapter: new Adapter()})
 
-describe('App',() => {
+describe('MessageApp', () => {
+
   beforeEach(function(){
     mockAxios.post.mockImplementation(() =>
     Promise.resolve({ data: [] }))
-  })
+    mockAxios.get.mockImplementation(() =>
+    Promise.resolve({data: [{id:1, content:'hello', date:'2000'}]})
+  )})
+
   afterEach(function(){
     mockAxios.post.mockClear()
-  }) 
+    mockAxios.get.mockClear()
+  })
   it('renders without crashing', () => {
     const component = mount(<MessageApp/>);
     expect(component).toMatchSnapshot();
@@ -38,5 +43,10 @@ describe('App',() => {
     component.find('form').simulate('submit')
     expect(mockAxios.post).toHaveBeenCalledWith("http://localhost:3001/message", {"content": "Hello"});
     expect(component.instance().refs.messageFormRef.state.currentMessage).toEqual('');
+    expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  });
+  it('Loads data from api', () => {
+    mount(<MessageApp />);
+    expect(mockAxios.get).toHaveBeenCalledTimes(1);
   });
 })

@@ -1,6 +1,7 @@
 import React from 'react';
 
 class MessageForm extends React.Component {
+    
     constructor(){
         super()
         this.state = {
