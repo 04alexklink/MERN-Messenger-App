@@ -11,6 +11,8 @@ class MessageList extends React.Component {
             {message.content}
             <br/>
             {message.date}
+            <br/>
+            <button onClick={()=> this.props.deleteMessage(message.id)} id='delete'>delete</button>
             </li>
           })} 
           </ul>)} else {
@@ -20,5 +22,4 @@ class MessageList extends React.Component {
         }
       }
   }
-
 export default MessageList;
