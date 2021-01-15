@@ -55,6 +55,19 @@ class MessageApp extends Component {
       })
     })
   }
+  sendUpdate = (id, content) => {
+    axios.put(`${PORT}/update/${id}`, {
+      content: content
+    })
+    .then((result)=>{
+      this.getAllMessages()
+    })
+    .catch((err)=>{
+      this.setState({
+        error: err
+      })
+    })
+  }
 componentDidMount() {
   this.getAllMessages();
 }
@@ -64,7 +77,7 @@ componentDidMount() {
     <div className="MessageApp">
       <MessageForm ref='messageFormRef'
       submitMessage={this.submitMessage}/>
-      <MessageList messages={this.state.messages} deleteMessage={this.deleteMessage}/>
+      <MessageList ref='messageListRef' messages={this.state.messages} deleteMessage={this.deleteMessage} sendUpdate={this.sendUpdate}/>
       <ErrorHandler
       error={this.state.error}
       />

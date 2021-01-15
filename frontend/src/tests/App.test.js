@@ -20,8 +20,8 @@ describe('MessageApp', () => {
     Promise.resolve({data: mockMessages}))
     mockAxios.delete.mockImplementation(()=>
     Promise.resolve({ data: mockMessagesDeleted }))
-    mockAxios.delete.mockImplementation(()=>
-    Promise.resolve({ data: mockMessagesUpdated }))
+    mockAxios.put.mockImplementation(()=>
+    Promise.resolve({ data: [] }))
   })
 
   afterEach(function(){
@@ -72,10 +72,13 @@ describe('MessageApp', () => {
     await component.update()
     await component.find('ul#message_list').childAt(0).find('#update').simulate('click')
     expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
-    // component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
+    component.find('textarea#updateBox').simulate('change', { target: { value: 'Hey' } })
+    expect(component.find('textarea#updateBox').text()).toEqual('Hey');
+    expect(component.instance().refs.messageListRef.state.editMode.content).toEqual('Hey');
     component.find('ul#message_list').childAt(0).find('#send').simulate('click')
-    expect(mockAxios.put).toHaveBeenCalledWith("http://localhost:3001/update/1", {"content": "Hello"});
-    expect(component.find('textarea').text()).toEqual('');
+    expect(mockAxios.put).toHaveBeenCalledWith("http://localhost:3001/update/1", {"content": "Hey"});
+    expect(component.find('ul#message_list').childAt(0).find('#update').text()).toBe('Update')
+    expect(component.instance().refs.messageListRef.state.editMode.content).toEqual(null);
   });
   describe('MessageApp erroring', () => {
     beforeEach(function(){
