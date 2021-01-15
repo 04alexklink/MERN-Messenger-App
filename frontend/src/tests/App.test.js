@@ -20,12 +20,15 @@ describe('MessageApp', () => {
     Promise.resolve({data: mockMessages}))
     mockAxios.delete.mockImplementation(()=>
     Promise.resolve({ data: mockMessagesDeleted }))
+    mockAxios.delete.mockImplementation(()=>
+    Promise.resolve({ data: mockMessagesUpdated }))
   })
 
   afterEach(function(){
     mockAxios.post.mockClear()
     mockAxios.get.mockClear()
     mockAxios.delete.mockClear()
+    mockAxios.put.mockClear()
   })
   it('renders without crashing', () => {
     const component = mount(<MessageApp/>);
@@ -63,6 +66,16 @@ describe('MessageApp', () => {
     expect(mockAxios.delete).toHaveBeenCalledWith("http://localhost:3001/delete/4", {"id": 4});
     expect(component.find('ul#message_list').children().length).toBe(4);
     expect(mockAxios.get).toHaveBeenCalledTimes(1);
+  });
+  it('updates message on update', async () => {
+    const component = await mount(<MessageApp/>);
+    await component.update()
+    await component.find('ul#message_list').childAt(0).find('#update').simulate('click')
+    expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
+    // component.find('textarea#message_box').simulate('change', { target: { value: 'Hello' } })
+    component.find('ul#message_list').childAt(0).find('#send').simulate('click')
+    expect(mockAxios.put).toHaveBeenCalledWith("http://localhost:3001/update/1", {"content": "Hello"});
+    expect(component.find('textarea').text()).toEqual('');
   });
   describe('MessageApp erroring', () => {
     beforeEach(function(){

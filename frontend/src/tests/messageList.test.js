@@ -32,4 +32,20 @@ describe("MessageList", function() {
             expect(component.find('ul#message_list').childAt(0).exists('button#delete')).toBe(true);
         })
     })
+    describe("update messages",function() {
+        it("each message displayed has an update btn", function() {
+            const component = shallow(<MessageList messages={mockMessages}
+            />);
+            expect(component.find('ul#message_list').childAt(0).exists('button#update')).toBe(true);
+            expect(component.find('ul#message_list').childAt(2).find('#update').text()).toBe('Update');
+        })
+        it('update click changes button text', () => {
+            const component = mount(<MessageList
+              messages={mockMessages}
+              loaded={true}
+            />)
+            component.find('ul#message_list').childAt(0).find('#update').simulate('click')
+            expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
+          });
+    })
 })
