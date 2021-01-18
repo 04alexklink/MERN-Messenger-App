@@ -2,25 +2,18 @@ import MessageApp from './model.js';
 
 function getAll(){
   return MessageApp.find()
-  // return new Promise((resolve, reject) => {
-  //   var result = messageApp.getAll();
-  //   if (result.length !== 0 ) {
-  //     resolve(result);
-  //   } else {
-  //     reject("There are no messages in the database.");
-  //   }
-  // })
 }
 
 function getOne(id) {
-  return new Promise((resolve, reject) => {
-  var result = messageApp.get(id)
-  if(result != undefined) {
-    resolve(result);
-  } else {
-    reject("This message is not in the database.");
-  }
-})
+  return MessageApp.findOne({_id: id})
+  // return new Promise((resolve, reject) => {
+  // var result = messageApp.get(id)
+  // if(result != undefined) {
+  //   resolve(result);
+  // } else {
+  //   reject("This message is not in the database.");
+  // }
+  // })
 }
 
 function create(content) {

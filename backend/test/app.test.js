@@ -43,17 +43,17 @@ describe("message API endpoint tests", function(){
       done()
     })
   })
-//   it("gets one message", function(done) {
-//     var res = request(MessageApp).get("/message/1")
-//     res.expect(200)
-//     .end(function(err, res) {
-//       if (err) {
-//         return done(err)
-//       }
-//     expect(res.body.content).to.equal("hi world")
-//     done()
-//     })
-//   })
+  it("gets one message", function(done) {
+    var res = request(MessageApp).get(`/message/${id}`)
+    res.expect(200)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+    expect(res.body.content).to.equal("hi world")
+    done()
+    })
+  })
 //   it("updates a message", function(done) {
 //     var data = { content : "GoodMorning World" }
 //     var res = request(MessageApp)
