@@ -4,6 +4,8 @@ import { expect } from "chai";
 import MessageApp from "../app.js";
 
 describe("message API endpoint tests", function(){
+  let data;
+  let id;
   before(function (done) {
     mongoose.connect(`mongodb://localhost/testMessages`, { useNewUrlParser: true, useFindAndModify: false }, function(){
     mongoose.connection.db.dropDatabase(function(){
@@ -12,7 +14,7 @@ describe("message API endpoint tests", function(){
     })
     })
   it("posts a message", function(done) {
-    var data = {
+    data = {
       content: "hi world"
     };
     var res = request(MessageApp)
@@ -28,17 +30,19 @@ describe("message API endpoint tests", function(){
       done()
     })
   })
-//   it("gets all messages", function(done) {
-//     var res = request(MessageApp).get("/")
-//     res.expect(200)
-//     .end(function(err, res) {
-//       if (err) {
-//         return done(err)
-//       }
-//       expect(res.body.length).to.equal(1)
-//       done()
-//     })
-//   })
+  it("gets all messages", function(done) {
+    var res = request(MessageApp).get("/")
+    res.expect(200)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      id = res.body[0]._id;
+      expect(res.body.length).to.equal(1);
+      expect(res.body[0].content).to.equal('hi world');
+      done()
+    })
+  })
 //   it("gets one message", function(done) {
 //     var res = request(MessageApp).get("/message/1")
 //     res.expect(200)
