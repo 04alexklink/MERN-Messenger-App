@@ -1,10 +1,10 @@
 import MessageApp from './model.js';
-var messageApp;
-if (process.env.npm_lifecycle_event == "test") {
-  messageApp = new MessageApp('/json/testMessages.json');
-} else {
-  messageApp = new MessageApp('/json/messages.json');
-}
+// var messageApp;
+// if (process.env.npm_lifecycle_event == "test") {
+//   messageApp = new MessageApp('/json/testMessages.json');
+// } else {
+//   messageApp = new MessageApp('/json/messages.json');
+// }
 
 function getAll(){
   return new Promise((resolve, reject) => {
@@ -29,15 +29,17 @@ function getOne(id) {
 }
 
 function create(content) {
-  return new Promise((resolve,reject) => {
-    messageApp.create(content)
-    var result = messageApp.getAll();
-    if (result.length !== 0) {
-      resolve(result);
-    } else {
-      reject("You can't post an empty message.");
-    }
-  })
+  let newMessage = new MessageApp({content: content})
+  return newMessage.save()
+  // return new Promise((resolve,reject) => {
+  //   messageApp.create(content)
+  //   var result = messageApp.getAll();
+  //   if (result.length !== 0) {
+  //     resolve(result);
+  //   } else {
+  //     reject("You can't post an empty message.");
+  //   }
+  // })
 }
 
 function update(id, content) {
