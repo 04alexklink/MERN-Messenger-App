@@ -113,7 +113,7 @@ describe('MessageApp', () => {
       expect(component.state().error).toEqual({"response": {"data": "error text from json mock"}});
       expect(component.find('#error').text()).toBe('Error: error text from json mock');
     });
-    it('loads err on PUT err', async () => {
+    it('loads err on DELETE err', async () => {
       const component = await mount(<MessageApp/>);
       component.setState({
         messages: mockMessages,
@@ -122,6 +122,19 @@ describe('MessageApp', () => {
       await component.update()
       await
       component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
+      expect(component.state().error).toEqual({"response": {"data": "error text from json mock"}});
+      expect(component.find('#error').text()).toBe('Error: error text from json mock');
+    });
+    it('loads err on PUT err', async () => {
+      const component = await mount(<MessageApp/>);
+      component.setState({
+        messages: mockMessages,
+        loaded: true
+      });
+      await component.update()
+      await
+      component.find('ul#message_list').childAt(0).find('#update').simulate('click')
+      expect(component.find('ul#message_list').childAt(0).find('#send').text()).toBe('Send Update')
       expect(component.state().error).toEqual({"response": {"data": "error text from json mock"}});
       expect(component.find('#error').text()).toBe('Error: error text from json mock');
     });
