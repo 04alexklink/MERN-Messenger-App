@@ -97,19 +97,31 @@ describe('MessageApp', () => {
       mockAxios.delete.mockClear()
       mockAxios.put.mockClear()
     })
-  it('loads err on GET err', async () => {
-     const component = await mount(<MessageApp/>);
-     await component.update()
-     expect(mockAxios.get).toHaveBeenCalledTimes(1);
-     expect(component.state().error).toEqual({"response": {"data": "error text from json mock"}});
-     expect(component.find('#error').text()).toBe('Error: error text from json mock');
-   });
-  it('loads err on Post err', async () => {
+    it('loads err on GET err', async () => {
+      const component = await mount(<MessageApp/>);
+      await component.update()
+      expect(mockAxios.get).toHaveBeenCalledTimes(1);
+      expect(component.state().error).toEqual({"response": {"data": "error text from json mock"}});
+      expect(component.find('#error').text()).toBe('Error: error text from json mock');
+    });
+    it('loads err on Post err', async () => {
       const component = mount(<MessageApp/>);
       component.find('textarea#message_box').simulate('change', { target: { value: 'bad string' } })
       await component.find('form').simulate('submit')
       await component.update()
       expect(mockAxios.post).toHaveBeenCalledTimes(1)
+      expect(component.state().error).toEqual({"response": {"data": "error text from json mock"}});
+      expect(component.find('#error').text()).toBe('Error: error text from json mock');
+    });
+    it('loads err on PUT err', async () => {
+      const component = await mount(<MessageApp/>);
+      component.setState({
+        messages: mockMessages,
+        loaded: true
+      });
+      await component.update()
+      await
+      component.find('ul#message_list').childAt(0).find('#delete').simulate('click');
       expect(component.state().error).toEqual({"response": {"data": "error text from json mock"}});
       expect(component.find('#error').text()).toBe('Error: error text from json mock');
     });
