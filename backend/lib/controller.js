@@ -31,7 +31,6 @@ function create(content) {
 }
 
 function update(id, content) {
-  console.log(MessageApp.findOneAndUpdate({_id: id}, {content: content}, {new: true}), "WHADP")
   return MessageApp.findOneAndUpdate({_id: id}, {content: content}, {new: true})
   // return new Promise((resolve, reject) => {
   //   var result = messageApp.update(id, content)
@@ -44,14 +43,15 @@ function update(id, content) {
 }
 
 function deleteMessage(id){
-  return new Promise((resolve, reject) => {
-    let result = messageApp.delete(id)
-    if (result != 'This message does not exist.') {
-      resolve(result)
-    } else {
-      reject(result)
-    }
-  })
+  return MessageApp.deleteOne({_id: id})
+  // return new Promise((resolve, reject) => {
+  //   let result = messageApp.delete(id)
+  //   if (result != 'This message does not exist.') {
+  //     resolve(result)
+  //   } else {
+  //     reject(result)
+  //   }
+  // })
 }
 
 module.exports = {

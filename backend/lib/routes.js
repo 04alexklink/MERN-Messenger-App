@@ -25,7 +25,6 @@ router.put('/update/:id', async (req, res) => {
   var content = req.body.content
   await messageApp.update(id, content)
   .then((messages) => { 
-    console.log(res.json(messages), "COMEON")
     res.json(messages)
   })
   .catch((err) => res.status(404).json(err))
@@ -38,5 +37,4 @@ router.delete('/delete/:id', async (req, res) => {
   })
   .catch((err) => res.status(404).json(err))
 })
-// module.exports = router
 export default router

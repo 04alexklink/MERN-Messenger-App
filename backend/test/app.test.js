@@ -69,19 +69,19 @@ describe("message API endpoint tests", function(){
     done()
     })
   })
-//   it("deletes a message", function(done) {
-//     var res = request(MessageApp)
-//     .delete("/delete/1")
-//     .set("Accept", "application/json")
-//     res.expect(200)
-//     .end(function(err, res) {
-//       if (err) {
-//         return done(err)
-//       }
-//     expect(res.body.length).to.equal(0)
-//     done()
-//     })
-//   })
+  it("deletes a message", function(done) {
+    var res = request(MessageApp)
+    .delete(`/delete/${id}`)
+    .set("Accept", "application/json")
+    res.expect(200)
+    .end(function(err, res) {
+      if (err) {
+        return done(err)
+      }
+      expect(res.body.deletedCount).to.equal(1)
+    done()
+    })
+  })
 // describe("errors raised by message API when necessary", function() {
 //   it("produces error if try to get messages when none exist", function(done) {
 //     var res = request(MessageApp).get("/")
