@@ -31,14 +31,16 @@ function create(content) {
 }
 
 function update(id, content) {
-  return new Promise((resolve, reject) => {
-    var result = messageApp.update(id, content)
-    if(result != "This message does not exist or updated content is missing.") {
-      resolve(result)
-    } else {
-      reject(result)
-    }
-  })
+  console.log(MessageApp.findOneAndUpdate({_id: id}, {content: content}, {new: true}), "WHADP")
+  return MessageApp.findOneAndUpdate({_id: id}, {content: content}, {new: true})
+  // return new Promise((resolve, reject) => {
+  //   var result = messageApp.update(id, content)
+  //   if(result != "This message does not exist or updated content is missing.") {
+  //     resolve(result)
+  //   } else {
+  //     reject(result)
+  //   }
+  // })
 }
 
 function deleteMessage(id){
