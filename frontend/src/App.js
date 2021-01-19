@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import MessageList from './components/messageList.js';
 import MessageForm from './components/messageForm.js';
 import ErrorHandler from './components/errorHandler.js';
-import './App.css';
 import axios from 'axios';
 const PORT = 'http://localhost:3001';
 
@@ -10,7 +9,8 @@ class MessageApp extends Component {
   constructor(){
     super()
     this.state = {
-      messages: []
+      messages: [],
+      error: null
     }
   }
 
@@ -33,11 +33,12 @@ class MessageApp extends Component {
       this.setState({
        messages: result.data
       })
+      console.log("I am being called")
     })
-    .catch((err) => {
+    .catch((err)=>{
       this.setState({
-        error: err
-      })
+        messages: null
+    })
     })
   }
   deleteMessage= (id) => {
@@ -45,9 +46,7 @@ class MessageApp extends Component {
       id: id
     })
     .then((result)=> {
-      this.setState({
-        messages: result.data
-      })
+      this.getAllMessages();
     })
     .catch((err) => {
       this.setState({

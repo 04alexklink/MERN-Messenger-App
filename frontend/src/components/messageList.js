@@ -14,7 +14,7 @@ class MessageList extends React.Component {
   toggleUpdate(message){
       this.setState({
         editMode: {
-          id: message.id,
+          id: message._id,
           content: message.content
         }
       })
@@ -37,13 +37,13 @@ class MessageList extends React.Component {
             Update
             </button>
             var Content = message.content
-            if(message.id=== this.state.editMode.id) {
+            if(message._id=== this.state.editMode.id) {
               updateButton = <button
               onClick={()=>this.sendUpdate()}
               id='send'>Send Update</button>
 
               Content = <textarea onChange={(e) => this.setState({editMode: {
-                id: message.id,
+                id: message._id,
                 content: e.target.value
               }} 
               )}
@@ -52,12 +52,12 @@ class MessageList extends React.Component {
               id='updateBox'
               ></textarea>
             }
-            return <li className={message} key={message.id}>
+            return <li className={message} key={message._id}>
             {Content}
             <br/>
             {message.date}
             <br/>
-            <button onClick={()=> this.props.deleteMessage(message.id)} id='delete'>delete</button>
+            <button onClick={()=> this.props.deleteMessage(message._id)} id='delete'>delete</button>
             <br/>
             {updateButton}
             </li>
