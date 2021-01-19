@@ -26,7 +26,6 @@ describe("message API endpoint tests", function(){
       if (err) {
         return done(err)
       }
-      // expect(res.body[0].content).to.equal('hi world');
       done()
     })
   })
@@ -82,86 +81,71 @@ describe("message API endpoint tests", function(){
     done()
     })
   })
-// describe("errors raised by message API when necessary", function() {
-//   it("produces error if try to get messages when none exist", function(done) {
-//     var res = request(MessageApp).get("/")
-//     res.expect(404)
-//     .end(function(err, res) {
-//       if(err) {
-//         return done(err);
-//       }
-//       expect(res.body).to.equal("There are no messages in the database.")
-//       done();
-//     })
-//   })
-//   it("raises error if emptry string or nothing sent as message content to post", function(done) {
-//     var data = { content: '' }
-//     var res = request(MessageApp)
-//     .post("/message")
-//     .send(data)
-//     .set("Accept", "application/json")
-//     res.expect(404)
-//     .end(function(err, res) {
-//       if(err) {
-//         return done(err);
-//       }
-//       expect(res.body).to.equal("You can't post an empty message.")
-//       done()
-//     })
-//   })
-//   it("raises error if try to update with no content", function(done) {
-//     var data = { content: "" }
-//     var res = request(MessageApp)
-//     .put("/update/1")
-//     .send(data)
-//     .set("Accept", "application/json")
-//     res.expect(404)
-//     .end(function(err, res) {
-//       if(err) {
-//         return done(err);
-//       }
-//       expect(res.body).to.equal("This message does not exist or updated content is missing.")
-//       done()
-//     })
-//   })
-//   it("raises error if try to update a message that doesn't exist", function(done) {
-//     var data = { content: "Hello" }
-//     var res = request(MessageApp)
-//     .put("/update/2")
-//     .send(data)
-//     .set("Accept", "application/json")
-//     res.expect(404)
-//     .end(function(err, res) {
-//       if(err) {
-//         return done(err);
-//       }
-//       expect(res.body).to.equal("This message does not exist or updated content is missing.")
-//       done()
-//     })
-//   })
-//   it("creates an error if single message does not exist", function(done) {
-//     var res = request(MessageApp).get("/message/2")
-//     res.expect(404)
-//     .end(function (err, res) {
-//       if(err) {
-//         return done(err);
-//       }
-//       expect(res.body).to.equal("This message is not in the database.")
-//       done();
-//     })
-//   })
-//   it("raises error if try to delete a message that doesn't exist", function(done) {
-//     var res = request(MessageApp)
-//     .delete("/delete/3")
-//     .set("Accept", "application/json")
-//     res.expect(404)
-//     .end(function (err, res) {
-//       if(err) {
-//         return done(err);
-//       }
-//       expect(res.body).to.equal("This message does not exist.")
-//       done();
-//     })
-//   })
-// })
+describe("errors raised by message API when necessary", function() {
+  it("produces error if try to get messages when none exist", function(done) {
+    var res = request(MessageApp).get("/")
+    res.expect(404)
+    .end(function(err, res) {
+      if(err) {
+        return done(err);
+      }
+      expect(res.body).to.equal("No messages in database")
+      done();
+    })
+  })
+  it("raises error if emptry string or nothing sent as message content to post", function(done) {
+    var data = { content: '' }
+    var res = request(MessageApp)
+    .post("/message")
+    .send(data)
+    .set("Accept", "application/json")
+    res.expect(404)
+    .end(function(err, res) {
+      if(err) {
+        return done(err);
+      }
+      expect(res.body).to.equal("You can't post an empty message")
+      done()
+    })
+   })
+  it("raises error if try to update a message that doesn't exist", function(done) {
+    var data = { content: "Hey" }
+    var res = request(MessageApp)
+    .put("/update/5e3488081b8bfa79a6625542")
+    .send(data)
+    .set("Accept", "application/json")
+    res.expect(404)
+    .end(function(err, res) {
+      if(err) {
+        return done(err);
+      }
+      expect(res.body).to.equal("Message not found in database")
+      done()
+    })
+  })
+  it("creates an error if single message does not exist", function(done) {
+    var res = request(MessageApp).get("/message/5e3488081b8bfa79a6625542")
+    res.expect(404)
+    .end(function (err, res) {
+      if(err) {
+        return done(err);
+      }
+      expect(res.body).to.equal("Message not found in database")
+      done();
+    })
+  })
+  it("raises error if try to delete a message that doesn't exist", function(done) {
+    var res = request(MessageApp)
+    .delete("/delete/5e3488081b8bfa79a6625542")
+    .set("Accept", "application/json")
+    res.expect(404)
+    .end(function (err, res) {
+      if(err) {
+        return done(err);
+      }
+      expect(res.body).to.equal("Message not found in database")
+      done();
+    })
+  })
+  })
 })
