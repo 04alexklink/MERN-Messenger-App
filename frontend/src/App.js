@@ -13,7 +13,6 @@ class MessageApp extends Component {
       error: null
     }
   }
-
   submitMessage = (data) => {
     axios.post(`${PORT}/message`, {
       content: data
@@ -33,12 +32,11 @@ class MessageApp extends Component {
       this.setState({
        messages: result.data
       })
-      console.log("I am being called")
     })
     .catch((err)=>{
       this.setState({
         messages: null
-    })
+      })
     })
   }
   deleteMessage= (id) => {
@@ -67,21 +65,20 @@ class MessageApp extends Component {
       })
     })
   }
-componentDidMount() {
-  this.getAllMessages();
-}
-
+  componentDidMount() {
+    this.getAllMessages();
+  }
   render() {
     return (
-    <div className="MessageApp">
+      <div className="MessageApp">
       <MessageForm ref='messageFormRef'
       submitMessage={this.submitMessage}/>
       <MessageList ref='messageListRef' messages={this.state.messages} deleteMessage={this.deleteMessage} sendUpdate={this.sendUpdate}/>
       <ErrorHandler
       error={this.state.error}
       />
-    </div>
-    );
+      </div>
+    )
   }
 }
 

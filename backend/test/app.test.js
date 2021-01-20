@@ -8,11 +8,11 @@ describe("message API endpoint tests", function(){
   let id;
   before(function (done) {
     mongoose.connect(`mongodb://localhost/testMessages`, { useNewUrlParser: true, useFindAndModify: false }, function(){
-    mongoose.connection.db.dropDatabase(function(){
-    done()
+      mongoose.connection.db.dropDatabase(function(){
+      done()
+      })
     })
-    })
-    })
+  })
   it("posts a message", function(done) {
     data = {
       content: "hi world"
@@ -49,8 +49,8 @@ describe("message API endpoint tests", function(){
       if (err) {
         return done(err)
       }
-    expect(res.body.content).to.equal("hi world")
-    done()
+      expect(res.body.content).to.equal("hi world")
+      done()
     })
   })
   it("updates a message", function(done) {
@@ -64,8 +64,8 @@ describe("message API endpoint tests", function(){
       if (err) {
         return done(err)
       }
-    expect(res.body.content).to.equal("GoodMorning World")
-    done()
+      expect(res.body.content).to.equal("GoodMorning World")
+      done()
     })
   })
   it("deletes a message", function(done) {
@@ -78,9 +78,10 @@ describe("message API endpoint tests", function(){
         return done(err)
       }
       expect(res.body.deletedCount).to.equal(1)
-    done()
+      done()
     })
   })
+})
 describe("errors raised by message API when necessary", function() {
   it("produces error if try to get messages when none exist", function(done) {
     var res = request(MessageApp).get("/")
@@ -146,6 +147,5 @@ describe("errors raised by message API when necessary", function() {
       expect(res.body).to.equal("Message not found in database")
       done();
     })
-  })
   })
 })
